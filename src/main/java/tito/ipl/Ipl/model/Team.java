@@ -59,4 +59,7 @@ public class Team {
                 ", totalWins=" + totalWins +
                 '}';
     }
+    public  Team(){
+
+    }
 }
