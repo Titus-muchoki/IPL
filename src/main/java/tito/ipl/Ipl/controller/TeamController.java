@@ -1,11 +1,15 @@
 package tito.ipl.Ipl.controller;
 
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import tito.ipl.Ipl.model.Team;
 import tito.ipl.Ipl.repository.MatchRepository;
 import tito.ipl.Ipl.repository.TeamRepository;
+
+import java.awt.print.Pageable;
 
 @RestController
 public class TeamController {
@@ -18,7 +22,9 @@ public class TeamController {
     @GetMapping("/team/{teamName}")
     public Team getTeam(@PathVariable String teamName){
       Team team = this.teamRepository.findByTeamName(teamName);
-      team.setMatches(matchRepository.getByTeam1OrTeam2(teamName, teamName));
+
+        PageRequest pageable = PageRequest.of(0, 4);
+      team.setMatches(matchRepository.getByTeam1OrTeam2OrderByDateDesc(teamName, teamName, pageable));
 
       return team;
     }
