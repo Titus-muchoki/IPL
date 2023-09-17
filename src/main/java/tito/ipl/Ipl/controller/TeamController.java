@@ -23,8 +23,7 @@ public class TeamController {
     public Team getTeam(@PathVariable String teamName){
       Team team = this.teamRepository.findByTeamName(teamName);
 
-        PageRequest pageable = PageRequest.of(0, 4);
-      team.setMatches(matchRepository.getByTeam1OrTeam2OrderByDateDesc(teamName, teamName, pageable));
+      team.setMatches(matchRepository.findLatestMatchesByTeam(teamName, 4));
 
       return team;
     }
