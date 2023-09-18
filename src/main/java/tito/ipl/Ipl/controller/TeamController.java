@@ -34,8 +34,10 @@ public class TeamController {
         LocalDate startDate = LocalDate.of(year, 1, 1);
         LocalDate endDate = LocalDate.of(year + 1, 1, 1);
 
-      return this.matchRepository.getByTeam1OrTeam2OrAndDateBetweenOrderByDateDesc(
+      return this.matchRepository.getByTeam1AndDateBetweenOrTeam2OrAndDateBetweenOrderByDateDesc(
                 teamName,
+                startDate,
+                endDate,
                 teamName,
                 startDate,
                 endDate
